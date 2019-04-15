@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [引言](README.md)
 * [背景](posts/background.md)
 * [轴公约](posts/axis_conventions.md)
 * [方向余弦矩阵](posts/direction_cosine_matrices.md)
