@@ -40,6 +40,8 @@ $$
 COGX=cos(cog)\\ 
 COGY=sin(cog) \tag{Eqn. 22}
 $$
+说明：（COG course of ground对地航向）
+
 接着我们计算偏航修正
 $$
 YawCorrectionGround=r_{xx}COGY-r_{yx}COGX \tag{Eqn. 23}
