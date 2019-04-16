@@ -1,12 +1,22 @@
 # 反馈控制器
 每一个旋转漂移矫正矢量（偏航、滚转和俯仰）乘以重量，输入到比例积分反馈控制器，增加陀螺仪矢量以产生一个矫正的陀螺仪矢量用作方程17的输入。（现在可以回到图1了。）计算过程如下。首先我们计算总共的旋转修正的平均加权。在我们的案例中，有两个修正，但是通常会更多：
+$$
+\begin{align}
+TotalCorrection=\\
+&W_{RP}RollPitchCorrectionPlane\\ \tag{Eqn. 28}
+&+W_YYawCorrectionPlane
+\end{align}
+$$
 
-![](../images/eqn28.png)
 
 接下来，我们把总的修正传输到比例积分控制器：
-
-![](../images/eqn29.png)
-
+$$
+\begin{align}
+&\omega_{PCorrection}=K_PTotalCorrection\\
+&\omega_{ICorrection}=\omega_{ICorrection}+K_IdtTotalCorrection\\ \tag{Eqn. 29}
+&\omega_{Correction}=omega_{PCorrection}+omega_{ICorrection}
+\end{align}
+$$
 然后我们把陀螺仪修正矢量以通过给陀螺信号增加修正矢量的方式反馈到旋转更新方程，如方程16所示。    
 
 就此，要通过一个完整的计算来完成。下一步我们重复这整个计算。    

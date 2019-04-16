@@ -22,23 +22,49 @@
 幸运的是，所需要来计算离心加速度的信息一应俱全，离心加速度等于转动角速度和线速度的叉乘积。我们不需要一个确切的答案，一般来说也只有一个确切的答案。一般来说，飞机在指定的方向运动，因此我们假设飞机的速度矢量方向平行于飞机的X轴，GPS给我们提供飞机对地的速度大小，由于大地是一个惯性参考系，我们可以计算出飞机机体系下的速度矢量，也就是在X方向的对地速度。
 
 在机体参考坐标系中，我们计算离心加速度为陀螺矢量和速度矢量的叉乘积：
-
-![](../images/eqn25.png)
-
+$$
+\begin{align}
+&A_{centrifugal}=\omega_{gyro}\times V\\
+&V=\left[
+\begin{matrix} \tag{Eqn. 25}
+velocity\\
+0\\
+0
+\end{matrix}
+\right]
+\end{align}
+$$
 注意式25，我们只需要执行两次乘法，因为机体系下速度矢量中两个元素为0.
 
 常规地，市场上三轴加速度计中Z轴是朝下的，向下的重力加速度产生一个正输出。为了修复带有离心加速度的重力加速度值，我们需要添加离心加速度值得估计。因此，机体系下的重力矢量的参考测量值为：
+$$
+\begin{align}
+&g_{reference}=Accelerometer+\omega_{gyro}\times V\\
+&Accelerometer=\left[
+\begin{matrix}
+Accelerometer_x\\
+Accelerometer_y\\ \tag{Eqn. 26}
+Accelerometer_z
+\end{matrix}
+\right]
+\end{align}
+$$
 
-![](../images/eqn26.png)
 
 除了重力矢量的基准测量值，我们还需要基于方向余弦矩阵的一个估计值，主要体现在方向余弦矩阵的最后一行，即地球参考坐标系垂直向下轴相对于机体坐标系的投影。
 
 ![](../images/accel.png)
 
 在机体系下，横滚俯仰转动的修正矢量，是通过计算方向余弦矩阵的第三行和重力参考矢量归一化后值得叉乘积。
-
-![](../images/eqn27.png)
-
+$$
+RollPitchCorrectionPlane=\left[
+\begin{matrix}
+r_{zx}\\
+r_{zy}\\ \tag{Eqn. 27}
+r_{zz}
+\end{matrix}
+\right]
+$$
 在非常紧凑连续的转弯中，加速度计也许会饱和。换句话说，实际的运动加速度可能会超出加速度计的测量范围。在那样情况时，将会引入横滚俯仰角度方向的错误估计。控制应避免使加速度计饱和，类似地，陀螺仪也会在这个快速转弯时将会饱和。这个可以通过陀螺仪值反馈校正去限制转动速度。
 
 
